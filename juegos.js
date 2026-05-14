@@ -68,7 +68,7 @@ const listaJuegos = [
             "- Rayos: Consigues cubos de energía para comprar cartas con poderes permanentes o efectos inmediatos.",
             "- Corazones: Curan 1 punto de vida (Atención: ¡No puedes curarte si estás dentro de Tokio!).",
             "- Garras: Atacan. Si estás fuera de Tokio, haces daño al que esté dentro. Si estás dentro de Tokio, ¡tu ataque golpea a TODOS los que estén fuera!",
-            "Ceder Tokio: Si estás en Tokio y recibes daño de una garra, puedes decidir salir de Tokio y el atacante se verá obligado a entrar."
+            "Ceder Tokio: Si estás en Tokio y recibes daño de una guarra, puedes decidir salir de Tokio y el atacante se verá obligado a entrar."
         ],
         "fin": "La partida termina al instante si un jugador llega a 20 Puntos de Victoria o si la vida de todos los monstruos menos uno cae a 0."
     },
@@ -306,7 +306,7 @@ const listaJuegos = [
     {
         "nombre": "Danger",
         "gancho": "Un desternillante juego de supervivencia absurda ante catástrofes inminentes.",
-        "objetivo": "Gestionar tus recursos de defensa para ser el último superviviente con vida de la mesa.",
+        "objetivo": "Gestionar tus recursos de defense para ser el último superviviente con vida de la mesa.",
         "preparacion": [
             "Separar las cartas en dos mazos independientes: el mazo de Peligros Absurdos y el mazo de Objetos de Defensa.",
             "Repartir una mano inicial de 5 cartas de objeto y 3 fichas de vida a cada jugador."
@@ -500,9 +500,18 @@ function mostrarJuegos(juegosFiltrados) {
     });
 }
 
-// Escuchador del buscador en tiempo real
+// Escuchador del buscador en tiempo real con menú flotante inteligente
 buscador.addEventListener('input', (e) => {
     const texto = e.target.value.toLowerCase().trim();
+    const hero = document.querySelector('.hero');
+    
+    // Si escribimos algo, la cabecera (logo + título) se encoge a cero de forma fluida
+    if (texto.length > 0) {
+        hero.classList.add('oculto');
+    } else {
+        hero.classList.remove('oculto');
+    }
+
     const filtrados = listaJuegos.filter(juego => 
         juego.nombre.toLowerCase().includes(texto) || 
         juego.gancho.toLowerCase().includes(texto)
@@ -510,5 +519,5 @@ buscador.addEventListener('input', (e) => {
     mostrarJuegos(filtrados);
 });
 
-// Carga inicial de la aplicación
+// Inicialización de la Web App
 mostrarJuegos(listaJuegos);
